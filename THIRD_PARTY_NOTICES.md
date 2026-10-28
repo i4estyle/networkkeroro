@@ -7,7 +7,7 @@
 - Source: https://github.com/apache/echarts
 - License: Apache License 2.0
 
-The pinned browser distribution is stored at `vendor/echarts.min.js`. Project-owned dashboard code and assets are maintained separately from this dependency.
+The pinned browser distribution is stored at `dashboard/vendor/echarts.min.js`. Project-owned dashboard code and assets are maintained separately from this dependency.
 
 ## WENS Press
 

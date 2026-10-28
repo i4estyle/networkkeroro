@@ -1,34 +1,29 @@
-# Keroro Network Security Dashboard
+# Keroro Network
 
 Selected production source for the Keroro Network website. The repository contains the refactored security dashboard and the active WordPress theme, sanitized public content snapshot, and reviewed public media used by the normal website.
 
 ## Structure
 
 ```text
-components/   shared HTML components
-pages/        dashboard page sections
-src/          index template
-styles/       maintainable CSS source
-scripts/      application JavaScript source
-dist/         production CSS and JavaScript bundles
-tools/        build and release validation
-assets/       project-owned static assets
-vendor/       pinned third-party browser library
-index.html    generated production entry point
+dashboard/    security dashboard source, build tools, and production bundles
 wordpress/    active theme and sanitized public website content
 ```
+
+The `dashboard/` and `wordpress/` directories are independent production components. Repository-level documentation and security policy stay at the root.
 
 ## Build
 
 Node.js:
 
 ```bash
+cd dashboard
 npm run build
 ```
 
 Python 3, including production servers without Node.js:
 
 ```bash
+cd dashboard
 python3 tools/build-dashboard.py
 ```
 
@@ -37,8 +32,8 @@ Both builders generate `index.html`, `dist/dashboard.css`, and `dist/dashboard.j
 ## Validate
 
 ```bash
-python3 tools/validate-release.py
-node --check dist/dashboard.js
+python3 dashboard/tools/validate-release.py
+node --check dashboard/dist/dashboard.js
 ```
 
 ## Runtime data
@@ -49,5 +44,5 @@ WordPress core, the production database, `wp-config.php`, user accounts, passwor
 
 ## Deployment
 
-Build in a staging directory, validate the generated output, deploy static assets first, and replace `index.html` last using an atomic move. Never place secrets in frontend source or commit production runtime data.
+Build `dashboard/` in a staging directory, validate the generated output, deploy static assets first, and replace the production `index.html` last using an atomic move. Never place secrets in frontend source or commit production runtime data.
 
