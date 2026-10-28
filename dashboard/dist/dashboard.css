@@ -1327,10 +1327,20 @@ main {
 }
 
 /* Source: styles/components/animations.css */
-/* =========================
-   ANIMATIONS
-========================= */
+/* ==========================================================
+   ENTERPRISE MOTION SYSTEM: SILKY CASCADE FADE & REVEAL
+   Ultra-Smooth, Zero-Jank, 60/120fps GPU Compositor Only
+   Designed for High-Performance Enterprise Dashboards
+========================================================== */
 
+:root {
+    /* Smooth Apple/Linear deceleration curve (Pure smoothness, NO bounce) */
+    --motion-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --motion-duration-section: 0.52s;
+    --motion-duration-card: 0.46s;
+}
+
+/* Base Utility Keyframes */
 @keyframes spin {
     to {
         transform: rotate(360deg);
@@ -1357,6 +1367,196 @@ main {
     100% {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+/* ==========================================================
+   CORE MOTION: SILK FADE UP
+   Pure 2-point keyframes: fully computed on GPU compositor
+   Zero layout reflow, zero CPU paint cost
+========================================================== */
+
+@keyframes sectionFadeUp {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, 16px, 0);
+    }
+    100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes cardFadeUp {
+    0% {
+        opacity: 0;
+        transform: translate3d(0, 14px, 0);
+    }
+    100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+/* ==========================================================
+   VIEW: HOME (OVERVIEW) - TOP-TO-BOTTOM SECTION CASCADE
+   Section 1: Hero Banner (Top)
+   Section 2: KPI Metrics Cards
+   Section 3: Executive Threat Charts Panel
+   Section 4: Live Threat Events & Top IPs Grid (Bottom)
+========================================================== */
+
+/* Section 1: Hero Banner */
+.app.show .hero.is-active {
+    animation: sectionFadeUp var(--motion-duration-section) var(--motion-ease-out) both;
+    animation-delay: 0.04s;
+    will-change: opacity, transform;
+}
+
+/* Section 2: KPI Metrics Cards */
+.app.show .cards.is-active {
+    animation: sectionFadeUp var(--motion-duration-section) var(--motion-ease-out) both;
+    animation-delay: 0.12s;
+}
+
+.app.show .cards.is-active .card {
+    animation: cardFadeUp var(--motion-duration-card) var(--motion-ease-out) both;
+    will-change: opacity, transform;
+}
+.app.show .cards.is-active .card:nth-child(1) { animation-delay: 0.12s; }
+.app.show .cards.is-active .card:nth-child(2) { animation-delay: 0.16s; }
+.app.show .cards.is-active .card:nth-child(3) { animation-delay: 0.20s; }
+.app.show .cards.is-active .card:nth-child(4) { animation-delay: 0.24s; }
+.app.show .cards.is-active .card:nth-child(5) { animation-delay: 0.28s; }
+
+/* Section 3: Executive Analytics Charts Panel */
+.app.show .charts-overview-panel.is-active {
+    animation: sectionFadeUp var(--motion-duration-section) var(--motion-ease-out) both;
+    animation-delay: 0.26s;
+    will-change: opacity, transform;
+}
+
+.app.show .charts-overview-panel.is-active .chart-card {
+    animation: cardFadeUp var(--motion-duration-card) var(--motion-ease-out) both;
+    will-change: opacity, transform;
+}
+.app.show .charts-overview-panel.is-active .charts-grid-top > .chart-card:nth-child(1) { animation-delay: 0.30s; }
+.app.show .charts-overview-panel.is-active .charts-grid-top > .chart-card:nth-child(2) { animation-delay: 0.34s; }
+.app.show .charts-overview-panel.is-active .charts-grid-bottom > .chart-card:nth-child(1) { animation-delay: 0.38s; }
+.app.show .charts-overview-panel.is-active .charts-grid-bottom > .chart-card:nth-child(2) { animation-delay: 0.42s; }
+.app.show .charts-overview-panel.is-active .charts-grid-bottom > .chart-card:nth-child(3) { animation-delay: 0.46s; }
+
+/* Section 4: Content Grid (Top IPs & Live Security Events) */
+.app.show .home-events-grid.is-active {
+    animation: sectionFadeUp var(--motion-duration-section) var(--motion-ease-out) both;
+    animation-delay: 0.40s;
+    will-change: opacity, transform;
+}
+
+.app.show .home-events-grid.is-active > .top-ip-panel {
+    animation: cardFadeUp var(--motion-duration-card) var(--motion-ease-out) both;
+    animation-delay: 0.42s;
+    will-change: opacity, transform;
+}
+
+.app.show .home-events-grid.is-active > .panel:not(.top-ip-panel) {
+    animation: cardFadeUp var(--motion-duration-card) var(--motion-ease-out) both;
+    animation-delay: 0.46s;
+    will-change: opacity, transform;
+}
+
+/* ==========================================================
+   VIEW: BLOCKS (IP ENFORCEMENT) CASCADE
+   Section 1: Heading & Key Metrics
+   Section 2: Search & Filter Toolbar
+   Section 3: Blocked IPs Table
+   Section 4: Pagination Controls
+========================================================== */
+.app.show .enforcement-panel.is-active[data-dashboard-view="blocks"] > .enforcement-heading {
+    animation: sectionFadeUp var(--motion-duration-section) var(--motion-ease-out) both;
+    animation-delay: 0.04s;
+    will-change: opacity, transform;
+}
+
+.app.show .enforcement-panel.is-active[data-dashboard-view="blocks"] > .enforcement-toolbar {
+    animation: sectionFadeUp var(--motion-duration-section) var(--motion-ease-out) both;
+    animation-delay: 0.12s;
+    will-change: opacity, transform;
+}
+
+.app.show .enforcement-panel.is-active[data-dashboard-view="blocks"] > .enforcement-table-wrap {
+    animation: sectionFadeUp var(--motion-duration-section) var(--motion-ease-out) both;
+    animation-delay: 0.20s;
+    will-change: opacity, transform;
+}
+
+.app.show .enforcement-panel.is-active[data-dashboard-view="blocks"] > .event-pagination {
+    animation: sectionFadeUp var(--motion-duration-section) var(--motion-ease-out) both;
+    animation-delay: 0.28s;
+    will-change: opacity, transform;
+}
+
+/* ==========================================================
+   VIEW: HISTORY CASCADE
+   Section 1: Historical Top IPs Grid
+   Section 2: Date Range Filter Toolbar
+   Section 3: History Audit Table
+========================================================== */
+.app.show .history-layout.is-active[data-dashboard-view="history"] > .history-top-grid {
+    animation: sectionFadeUp var(--motion-duration-section) var(--motion-ease-out) both;
+    animation-delay: 0.04s;
+    will-change: opacity, transform;
+}
+
+.app.show .history-layout.is-active[data-dashboard-view="history"] .history-panel > .enforcement-heading {
+    animation: sectionFadeUp var(--motion-duration-section) var(--motion-ease-out) both;
+    animation-delay: 0.10s;
+    will-change: opacity, transform;
+}
+
+.app.show .history-layout.is-active[data-dashboard-view="history"] .history-panel > .enforcement-toolbar {
+    animation: sectionFadeUp var(--motion-duration-section) var(--motion-ease-out) both;
+    animation-delay: 0.16s;
+    will-change: opacity, transform;
+}
+
+.app.show .history-layout.is-active[data-dashboard-view="history"] .history-panel > .enforcement-table-wrap {
+    animation: sectionFadeUp var(--motion-duration-section) var(--motion-ease-out) both;
+    animation-delay: 0.24s;
+    will-change: opacity, transform;
+}
+
+/* ==========================================================
+   SMOOTH HOVER ELEVATION (Maintains clean interactive feel)
+========================================================== */
+@media (hover: hover) and (pointer: fine) {
+    .app.show .cards.is-active .card:hover {
+        transform: translate3d(0, -3px, 0) !important;
+        box-shadow: var(--shadow-hover);
+    }
+
+    .app.show .charts-overview-panel.is-active .chart-card:hover {
+        transform: translate3d(0, -2px, 0) !important;
+    }
+}
+
+/* ==========================================================
+   ACCESSIBILITY SAFEGUARD (WCAG 2.1 AAA - Reduced Motion)
+========================================================== */
+@media (prefers-reduced-motion: reduce) {
+    .app.show .hero.is-active,
+    .app.show .cards.is-active,
+    .app.show .cards.is-active .card,
+    .app.show .charts-overview-panel.is-active,
+    .app.show .charts-overview-panel.is-active .chart-card,
+    .app.show .home-events-grid.is-active,
+    .app.show .home-events-grid.is-active > *,
+    .app.show .enforcement-panel.is-active > *,
+    .app.show .history-layout.is-active * {
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
+        opacity: 1 !important;
     }
 }
 
@@ -3014,34 +3214,6 @@ body {
     }
 }
 
-/* Entrance rhythm: short, one-shot and fully GPU-friendly. */
-.app.show main .hero > *,
-.app.show main .cards > *,
-.app.show main .charts-overview-panel,
-.app.show main .content-grid > *,
-.app.show main > .enforcement-panel {
-    animation: ui-card-enter var(--ui-motion-slow) var(--ui-ease-out) both;
-}
-
-.app.show main .hero > :nth-child(2) { animation-delay: 55ms; }
-.app.show main .cards > :nth-child(1) { animation-delay: 80ms; }
-.app.show main .cards > :nth-child(2) { animation-delay: 115ms; }
-.app.show main .cards > :nth-child(3) { animation-delay: 150ms; }
-.app.show main .cards > :nth-child(4) { animation-delay: 185ms; }
-.app.show main .cards > :nth-child(5) { animation-delay: 220ms; }
-.app.show main .charts-overview-panel { animation-delay: 180ms; }
-.app.show main .content-grid > :nth-child(1) { animation-delay: 210ms; }
-.app.show main .content-grid > :nth-child(2) { animation-delay: 245ms; }
-.app.show main > .enforcement-panel { animation-delay: 120ms; }
-
-@keyframes ui-card-enter {
-    from { opacity: 0; transform: translate3d(0, 13px, 0); }
-    to { opacity: 1; transform: translate3d(0, 0, 0); }
-}
-
-@keyframes ui-orbit {
-    from { transform: translate3d(0, 0, 0) rotate(0deg); }
-    to { transform: translate3d(-10px, 8px, 0) rotate(7deg); }
 }
 
 @keyframes ui-dialog-enter {

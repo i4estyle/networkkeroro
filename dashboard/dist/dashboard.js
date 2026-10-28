@@ -489,13 +489,15 @@ function getDashboardView() {
 
 function setDashboardView(view, updateUrl = false) {
     if (view === "home") {
-        setTimeout(() => {
-            if (chartTimelineInstance) chartTimelineInstance.resize();
-            if (chartRadarInstance) chartRadarInstance.resize();
-            if (chartDonutInstance) chartDonutInstance.resize();
-            if (chartGaugeInstance) chartGaugeInstance.resize();
-            if (chartPathsInstance) chartPathsInstance.resize();
-        }, 80);
+        const resizeCharts = () => {
+            if (typeof chartTimelineInstance !== "undefined" && chartTimelineInstance) chartTimelineInstance.resize();
+            if (typeof chartRadarInstance !== "undefined" && chartRadarInstance) chartRadarInstance.resize();
+            if (typeof chartDonutInstance !== "undefined" && chartDonutInstance) chartDonutInstance.resize();
+            if (typeof chartGaugeInstance !== "undefined" && chartGaugeInstance) chartGaugeInstance.resize();
+            if (typeof chartPathsInstance !== "undefined" && chartPathsInstance) chartPathsInstance.resize();
+        };
+        setTimeout(resizeCharts, 80);
+        setTimeout(resizeCharts, 450);
     }
     const activeView = dashboardViews.has(view)
         ? view
