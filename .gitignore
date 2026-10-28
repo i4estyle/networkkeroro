@@ -49,3 +49,7 @@ __pycache__/
 .DS_Store
 Thumbs.db
 
+# WordPress private exports
+wordpress/private-content/
+wordpress/database/
+
