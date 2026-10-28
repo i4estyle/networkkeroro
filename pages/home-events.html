@@ -1,0 +1,171 @@
+<section class="content-grid home-events-grid dashboard-view" data-dashboard-view="home">
+
+        <!-- ACCESSED IP -->
+        <div class="panel top-ip-panel">
+            <div class="panel-head">
+                <div class="panel-title-row">
+                    <h3 data-i18n="topIps"></h3>
+                    <span id="homeIpCount" class="top-ip-count" aria-live="polite"></span>
+                </div>
+                <div class="control-group control-group-flush">
+                    <select id="homeIpSort" class="table-select" aria-label="Sort accessed IPs">
+                        <option value="most" data-i18n="sortMost"> คำขอ: มากที่สุด → น้อยที่สุด</option>
+                        <option value="least" data-i18n="sortLeast"> คำขอ: น้อยที่สุด → มากที่สุด</option>
+                        <option value="newest" data-i18n="sortNewest"> เวลา: เข้าถึงล่าสุดก่อน</option>
+                        <option value="oldest" data-i18n="sortOldest"> เวลา: เข้าถึงเก่าสุดก่อน</option>
+                        <option value="ip" data-i18n="sortIp"> หมายเลข IP (A → Z)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="ip-list">
+                <div class="ip-scroll">
+                    <div class="ip-head">
+                        <div data-i18n="ipAddress"></div>
+                        <div data-i18n="requestCount"></div>
+                    </div>
+                    <div id="homeIpList"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECURITY EVENTS -->
+        <div class="panel">
+
+            <div class="panel-head">
+                <h3 data-i18n="recentEvents"></h3>
+                <span data-i18n="recentEventsSub"></span>
+            </div>
+
+            <div class="event-toolbar">
+
+                <div class="event-search">
+
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        aria-hidden="true"
+                    >
+                        <circle cx="11" cy="11" r="7"></circle>
+                        <path d="m20 20-3.5-3.5"></path>
+                    </svg>
+
+                    <input
+                        id="eventSearch"
+                        type="text"
+                        role="searchbox"
+                        inputmode="search"
+                        enterkeyhint="search"
+                        autocomplete="off"
+                        autocapitalize="off"
+                        spellcheck="false"
+                        data-i18n-placeholder="searchPlaceholder"
+                        aria-label="Search security events"
+                    >
+
+                    <button
+                        id="searchClear"
+                        class="search-clear"
+                        type="button"
+                        aria-label="Clear search"
+                    >
+                        ×
+                    </button>
+
+                </div>
+
+                <div class="event-controls">
+
+                    <div class="control-group">
+                        <span
+                            class="control-label"
+                            data-i18n="sortBy">
+                        </span>
+
+                        <select
+                            id="eventSort"
+                            class="table-select"
+                            aria-label="Sort events"
+                        >
+                            <option
+                                value="newest"
+                                data-i18n="sortNewest"> เวลาตรวจพบ: ล่าสุดก่อน
+                            </option>
+                            <option
+                                value="oldest"
+                                data-i18n="sortOldest"> เวลาตรวจพบ: เก่าสุดก่อน
+                            </option>
+                            <option
+                                value="requests-desc"
+                                data-i18n="sortRequestsDesc"> ปริมาณคำขอ: มากที่สุด → น้อยที่สุด
+                            </option>
+                            <option
+                                value="requests-asc"
+                                data-i18n="sortRequestsAsc"> ปริมาณคำขอ: น้อยที่สุด → มากที่สุด
+                            </option>
+                            <option
+                                value="severity"
+                                data-i18n="sortSeverity"> ระดับความเสี่ยง: รุนแรงที่สุดก่อน
+                            </option>
+                            <option
+                                value="ip"
+                                data-i18n="sortIp"> หมายเลข IP (เรียงตามไอพี)
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="control-group">
+                        <span
+                            class="control-label"
+                            data-i18n="rowsPerPage">
+                        </span>
+
+                        <select
+                            id="eventPageSize"
+                            class="table-select"
+                            aria-label="Rows per page"
+                        >
+                            <option value="5">5</option>
+                            <option value="10" selected>10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                        </select>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="event-list">
+
+                <div class="event-head">
+                    <div data-i18n="time"></div>
+                    <div>IP</div>
+                    <div data-i18n="requests"></div>
+                    <div data-i18n="detection"></div>
+                    <div data-i18n="severity"></div>
+                </div>
+
+                <div id="eventList"></div>
+
+            </div>
+
+            <div class="event-pagination">
+
+                <div
+                    id="paginationSummary"
+                    class="pagination-summary">
+                </div>
+
+                <div
+                    id="paginationButtons"
+                    class="pagination-buttons"
+                    aria-label="Pagination">
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>

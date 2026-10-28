@@ -1,0 +1,26 @@
+/* =========================
+   SCROLLBARS
+========================= */
+
+.ip-scroll::-webkit-scrollbar {
+    width: 8px;
+}
+
+.ip-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.ip-scroll::-webkit-scrollbar-thumb {
+    background: #cbd7e1;
+    border: 2px solid #fff;
+    border-radius: 999px;
+}
+
+.ip-scroll::-webkit-scrollbar-thumb:hover {
+    background: #aebdca;
+}
+
+.ip-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd7e1 transparent;
+}

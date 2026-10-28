@@ -1,0 +1,32 @@
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes pulse {
+    0%,
+    100% {
+        box-shadow: 0 0 0 5px rgba(45, 189, 131, .13);
+    }
+
+    50% {
+        box-shadow: 0 0 0 8px rgba(45, 189, 131, .05);
+    }
+}
+
+@keyframes valueFlash {
+    0% {
+        opacity: .45;
+        transform: translateY(2px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

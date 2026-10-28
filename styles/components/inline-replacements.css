@@ -1,0 +1,59 @@
+/* Structural classes replacing former inline styles. */
+.chart-head-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+.chart-height-timeline { height: 320px; }
+.chart-height-gauge { height: 286px; }
+.chart-height-standard { height: 300px; }
+.panel-title-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.control-group.control-group-flush { margin: 0; }
+.dashboard-chart-tooltip {
+    box-shadow: 0 10px 25px -4px rgba(15, 23, 42, 0.12), 0 4px 6px -2px rgba(15, 23, 42, 0.05);
+    border-radius: 10px;
+}
+.chart-tooltip-title {
+    font-weight: 700;
+    font-size: 12.5px;
+    color: #0f172a;
+    margin-bottom: 6px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #f1f5f9;
+}
+.chart-tooltip-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin: 4px 0;
+    font-size: 12px;
+}
+.chart-tooltip-label { color: #64748b; }
+.chart-tooltip-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 6px;
+    background: #64748b;
+}
+.chart-tooltip-dot.is-request { background: #0a6aa1; }
+.chart-tooltip-dot.is-danger { background: #dc2626; }
+.chart-tooltip-value { font-weight: 700; color: #0f172a; }
+.chart-tooltip-value.is-danger,
+.gauge-metrics .is-danger { color: #dc2626; }
+.chart-tooltip-value.is-muted { color: #64748b; }
+.chart-tooltip-unit { font-weight: 400; font-size: 11px; color: #64748b; }
+.gauge-meta-separator { color: #cbd5e1; }
+.chart-tooltip-series-title { font-weight: 700; margin-bottom: 5px; }
+
+/* Fixed toast timing classes keep all presentation rules in stylesheets. */
+.dashboard-toast--duration-short { --toast-duration: 2200ms; }
+.dashboard-toast--duration-standard { --toast-duration: 3800ms; }
+.dashboard-toast--duration-long { --toast-duration: 5600ms; }

@@ -1,0 +1,68 @@
+/* =========================
+   IP TABLE
+========================= */
+
+.ip-list {
+    display: flex;
+    min-height: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    overflow: hidden;
+    background: var(--surface);
+}
+
+.ip-scroll {
+    flex: 1 1 auto;
+    min-height: 0;
+    max-height: 420px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+    scrollbar-color: #94a3b8 var(--surface-subtle);
+}
+
+.ip-head,
+.ip-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 140px;
+    align-items: center;
+    column-gap: 24px;
+}
+
+.ip-head {
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    padding: 12px 14px;
+    color: var(--muted);
+    background: #fff;
+    border-bottom: 1px solid #edf1f4;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.ip-row {
+    padding: 14px;
+    border-bottom: 1px solid #edf1f4;
+    font-size: 16px;
+}
+
+.ip-row:last-child {
+    border-bottom: 0;
+}
+
+.ip-head > div,
+.ip-row > div {
+    min-width: 0;
+    text-align: left;
+}
+
+.ip-value {
+    overflow-wrap: anywhere;
+}
+
+.count {
+    font-weight: 700;
+}

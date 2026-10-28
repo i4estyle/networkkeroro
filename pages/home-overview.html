@@ -1,0 +1,134 @@
+<section class="hero dashboard-view" data-dashboard-view="home">
+
+        <div class="hero-main">
+            <h2 data-i18n="heroTitle"></h2>
+            <p data-i18n="heroText"></p>
+        </div>
+
+        <div class="hero-status">
+
+            <div class="monitor">
+                <span class="dot"></span>
+                <span data-i18n="monitoring"></span>
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="cards dashboard-view" data-dashboard-view="home">
+
+        <div class="card">
+            <div class="card-label" data-i18n="requests"></div>
+            <div id="total" class="card-value">0</div>
+            <div class="card-note" data-i18n="requestsNote"></div>
+        </div>
+
+        <div class="card">
+            <div class="card-label" data-i18n="uniqueIps"></div>
+            <div id="ips" class="card-value">0</div>
+            <div class="card-note" data-i18n="uniqueIpsNote"></div>
+        </div>
+
+        <div class="card">
+            <div class="card-label" data-i18n="events"></div>
+            <div id="eventsCount" class="card-value">0</div>
+            <div class="card-note" data-i18n="eventsNote"></div>
+        </div>
+
+        <div class="card">
+            <div class="card-label" data-i18n="high"></div>
+            <div id="high" class="card-value">0</div>
+            <div class="card-note" data-i18n="highNote"></div>
+        </div>
+
+        <div class="card">
+            <div class="card-label" data-i18n="aiStatus"></div>
+            <div id="aiStatus" class="card-value"></div>
+            <div id="aiDetail" class="card-note"></div>
+        </div>
+
+    </section>
+
+    <section class="charts-overview-panel dashboard-view" data-dashboard-view="home" aria-label="Security Analytics Overview">
+        
+
+        <div class="charts-grid-top">
+            <div class="chart-card chart-wide">
+                <div class="chart-card-head">
+                    <div>
+                        <h3 data-i18n="chartTimelineTitle">แนวโน้มปริมาณคำขอและภัยคุกคาม</h3>
+                        <p class="chart-desc" data-i18n="chartTimelineDesc">เปรียบเทียบคำขอทั้งหมดและเหตุการณ์ภัยคุกคามตามช่วงเวลาที่เลือก</p>
+                    </div>
+                    <div class="chart-head-actions">
+                        <label class="chart-period-control" for="timelinePeriod">
+                            <span data-i18n="periodLabel">ช่วงเวลา</span>
+                            <select id="timelinePeriod" class="chart-period-select">
+                                <option value="day" data-i18n="periodToday">วันนี้ · รายชั่วโมง</option>
+                                <option value="month" data-i18n="periodMonth">เดือนนี้ · รายวัน</option>
+                                <option value="quarter" data-i18n="periodQuarter">ไตรมาสนี้ · รายสัปดาห์</option>
+                                <option value="year" data-i18n="periodYear">ปีนี้ · รายเดือน</option>
+                            </select>
+                        </label>
+                        <div class="chart-legend-badge">
+                            <span class="legend-dot normal-dot"></span><span data-i18n="legendNormal">คำขอทั้งหมด</span>
+                            <span class="legend-dot threat-dot"></span><span data-i18n="legendThreat">เหตุการณ์ภัยคุกคาม</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="chartTrafficTimeline" class="echart-container chart-height-timeline"></div>
+            </div>
+
+            <div class="chart-card chart-narrow">
+                <div class="chart-card-head">
+                    <div>
+                        <h3 data-i18n="chartGaugeTitle">ระดับความปลอดภัยระบบ</h3>
+                        <p class="chart-desc" data-i18n="chartGaugeDesc">ดัชนีชี้วัดความมั่นคงปลอดภัยจากคำขอและภัยคุกคามที่ตรวจพบ</p>
+                    </div>
+                    <label class="chart-period-control" for="securityPeriod">
+                        <span class="sr-only" data-i18n="periodLabel">ช่วงเวลา</span>
+                        <select id="securityPeriod" class="chart-period-select">
+                            <option value="day" data-i18n="periodTodayShort">วันนี้</option>
+                            <option value="month" data-i18n="periodMonthShort">เดือนนี้</option>
+                            <option value="quarter" data-i18n="periodQuarterShort">ไตรมาสนี้</option>
+                            <option value="year" data-i18n="periodYearShort">ปีนี้</option>
+                        </select>
+                    </label>
+                </div>
+                <div id="chartSecurityGauge" class="echart-container chart-height-gauge"></div>
+                <div id="securityGaugeMeta" class="gauge-metrics" aria-live="polite"></div>
+            </div>
+        </div>
+
+        <div class="charts-grid-bottom">
+            <div class="chart-card">
+                <div class="chart-card-head">
+                    <div>
+                        <h3 data-i18n="chartRadarTitle">เรดาร์มิติภัยคุกคาม 6 ด้าน</h3>
+                        <p class="chart-desc" data-i18n="chartRadarDesc">วิเคราะห์ความเสี่ยงรายประเภทตามพฤติกรรมของ Hacker</p>
+                    </div>
+                </div>
+                <div id="chartThreatRadar" class="echart-container chart-height-standard"></div>
+            </div>
+
+            <div class="chart-card">
+                <div class="chart-card-head">
+                    <div>
+                        <h3 data-i18n="chartDonutTitle">สัดส่วนระดับความเสี่ยง</h3>
+                        <p class="chart-desc" data-i18n="chartDonutDesc">อัตราส่วนระหว่างความเสี่ยงสูง ปานกลาง และต่ำ</p>
+                    </div>
+                </div>
+                <div id="chartAttackVectors" class="echart-container chart-height-standard"></div>
+            </div>
+
+            <div class="chart-card">
+                <div class="chart-card-head">
+                    <div>
+                        <h3 data-i18n="chartPathsTitle">เป้าหมายที่ถูกโจมตีบ่อยที่สุด</h3>
+                        <p class="chart-desc" data-i18n="chartPathsDesc">เส้นทาง URL ที่ถูกโจมตีหรือสแกนหาช่องโหว่สูงสุด</p>
+                    </div>
+                </div>
+                <div id="chartTargetedPaths" class="echart-container chart-height-standard"></div>
+            </div>
+        </div>
+    </section>

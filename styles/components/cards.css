@@ -1,0 +1,50 @@
+/* =========================
+   CARDS
+========================= */
+
+.cards {
+    margin-top: 16px;
+    margin-bottom: 24px;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.card {
+    min-width: 0;
+    padding: 20px 22px;
+    min-height: 122px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+}
+
+.card-label {
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.card-value {
+    margin-top: 8px;
+    font-size: 32px;
+    line-height: 1.1;
+    font-weight: 700;
+}
+
+.card-note {
+    margin-top: 9px;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.value-change {
+    animation: valueFlash .35s ease;
+}

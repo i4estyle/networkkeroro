@@ -1,0 +1,57 @@
+<div class="history-layout dashboard-view" data-dashboard-view="history">
+    <section class="content-grid history-top-grid">
+        <div class="panel">
+            <div class="panel-head">
+                <div class="panel-title-row">
+                    <h3 data-i18n="topIps"></h3>
+                    <span id="historyIpCount" class="top-ip-count" aria-live="polite"></span>
+                </div>
+                <div class="control-group control-group-flush">
+                    <select id="historyIpSort" class="table-select" aria-label="Sort accessed IPs">
+                        <option value="most" data-i18n="sortMost"> คำขอ: มากที่สุด → น้อยที่สุด</option>
+                        <option value="least" data-i18n="sortLeast"> คำขอ: น้อยที่สุด → มากที่สุด</option>
+                        <option value="newest" data-i18n="sortNewest"> เวลา: เข้าถึงล่าสุดก่อน</option>
+                        <option value="oldest" data-i18n="sortOldest"> เวลา: เข้าถึงเก่าสุดก่อน</option>
+                        <option value="ip" data-i18n="sortIp"> หมายเลข IP (A → Z)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="ip-list">
+                <div class="ip-scroll">
+                    <div class="ip-head">
+                        <div data-i18n="ipAddress"></div>
+                        <div data-i18n="requestCount"></div>
+                    </div>
+                    <div id="ipList"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="enforcement-panel history-panel" aria-labelledby="historyTitle">
+        <div class="enforcement-heading">
+            <div>
+                <h2 id="historyTitle">ค้นหาประวัติเหตุการณ์</h2>
+                <p id="historyIntro">เลือกช่วงวันเพื่อดูเหตุการณ์ที่เก็บไว้ตั้งแต่เริ่มบันทึก</p>
+            </div>
+        </div>
+        <div class="enforcement-toolbar">
+            <label id="historyFromLabel" for="historyFrom">จากวันที่</label><input id="historyFrom" type="date">
+            <label id="historyToLabel" for="historyTo">ถึงวันที่</label><input id="historyTo" type="date">
+            <label id="historySearchLabel" for="historySearch">ค้นหา IP หรือสาเหตุ</label><input id="historySearch" type="search" autocomplete="off">
+            <button id="historySubmit" type="button">ค้นหา</button>
+        </div>
+        <p id="historyMessage" class="enforcement-message" role="status" aria-live="polite" hidden></p>
+        <div class="enforcement-table-wrap">
+            <table class="enforcement-table"><thead><tr>
+                <th id="historyThTime">เวลา</th><th>IP</th><th id="historyThWindow">ช่วงวิเคราะห์</th>
+                <th id="historyThReason">สาเหตุ</th><th id="historyThSeverity">ความเสี่ยง</th>
+                <th id="historyThLabel">ผลตรวจ</th><th id="historyThAction">จัดการ</th>
+            </tr></thead><tbody id="historyRows"><tr><td colspan="7">เลือกช่วงวันแล้วกดค้นหา</td></tr></tbody></table>
+        </div>
+        <div class="event-pagination">
+            <div id="historyPageSummary" class="pagination-summary"></div>
+            <div id="historyPaginationButtons" class="pagination-buttons" aria-label="Event archive pagination"></div>
+        </div>
+    </section>
+    </div>

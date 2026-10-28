@@ -1,0 +1,112 @@
+<section class="enforcement-panel dashboard-view" data-dashboard-view="blocks" aria-labelledby="enforcementTitle">
+        <div class="enforcement-heading">
+            <div>
+                <h2 id="enforcementTitle">การบล็อก IP</h2>
+                <p id="enforcementIntro">ตรวจสอบ IP ที่ถูกบล็อกและปลดบล็อกพร้อมบันทึกเหตุผล</p>
+            </div>
+            <div class="enforcement-metrics" aria-live="polite">
+                <div><strong id="permanentBlockCount">0</strong><span id="permanentBlockLabel">บล็อกถาวร</span></div>
+                <div><strong id="cooldownBlockCount">0</strong><span id="cooldownBlockLabel">พักการเข้าถึง</span></div>
+                <div><strong id="unblockedCount">0</strong><span id="unblockedLabel">ถูกปลดบล็อก</span></div>
+            </div>
+        </div>
+        <div class="enforcement-toolbar">
+            <label for="blockSearch" id="blockSearchLabel">ค้นหา IP</label>
+            <input id="blockSearch" type="search" autocomplete="off" inputmode="search" placeholder="เช่น 203.0.113.8">
+            <label for="blockFilter" id="blockFilterLabel">สถานะ</label>
+            <select id="blockFilter" class="table-select">
+                <option value="active">กำลังบล็อก</option>
+                <option value="PERMANENT_BLOCK">บล็อกถาวร</option>
+                <option value="COOLDOWN">พักการเข้าถึง</option>
+                <option value="history">ประวัติการปลดบล็อก</option>
+            </select>
+            <button id="blockRefresh" type="button">รีเฟรช</button>
+            <div class="event-controls block-list-controls" aria-label="Block list controls">
+                <div class="control-group">
+                    <span id="blockSortLabel" class="control-label">เรียงตาม</span>
+                    <select id="blockSort" class="table-select" aria-label="Sort blocked IPs">
+                        <option value="newest" data-i18n="sortBlockNewest"> เวลาถูกบล็อก: ล่าสุดก่อน</option>
+                        <option value="oldest" data-i18n="sortBlockOldest"> เวลาถูกบล็อก: เก่าสุดก่อน</option>
+                        <option value="status" data-i18n="sortBlockStatus"> สถานะ: บล็อกถาวรก่อน</option>
+                        <option value="ip" data-i18n="sortIp"> หมายเลข IP (เรียงตามไอพี)</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <span id="blockPageSizeLabel" class="control-label">แสดงต่อหน้า</span>
+                    <select id="blockPageSize" class="table-select" aria-label="Blocked IPs per page">
+                        <option value="5">5</option>
+                        <option value="10" selected>10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <p id="blockMessage" class="enforcement-message" role="status" aria-live="polite" hidden></p>
+        <p id="storageNotice" class="enforcement-message" role="alert" hidden></p>
+        <div class="enforcement-table-wrap">
+            <table class="enforcement-table">
+                <thead><tr>
+                    <th id="blockThIp">IP</th><th id="blockThStatus">สถานะ</th>
+                    <th id="blockThReason">สาเหตุ</th><th id="blockThTime">เริ่มบล็อก</th>
+                    <th id="blockThExpiry">สิ้นสุด</th><th id="blockThAction">จัดการ</th>
+                </tr></thead>
+                <tbody id="blockRows"></tbody>
+            </table>
+        </div>
+        <div class="event-pagination">
+            <div id="blockPageSummary" class="pagination-summary"></div>
+            <div id="blockPaginationButtons" class="pagination-buttons" aria-label="Block list pagination"></div>
+        </div>
+    </section>
+
+    <dialog id="blockDetailDialog" class="block-dialog" aria-labelledby="blockDialogTitle">
+        <form method="dialog" class="block-dialog-shell">
+            <button class="block-dialog-close" type="button" aria-label="Close">×</button>
+            <div id="blockReviewStep" class="dialog-stage">
+                <p class="enforcement-eyebrow">IP ENFORCEMENT</p>
+                <h2 id="blockDialogTitle"></h2>
+                <div id="blockDetailBody"></div>
+                <div id="unblockForm" hidden>
+                    <label id="confirmIpLabel" for="confirmBlockIp">พิมพ์ IP เพื่อยืนยัน</label>
+                    <input id="confirmBlockIp" type="text" autocomplete="off" spellcheck="false">
+                    <label id="unblockReasonLabel" for="unblockReason">เหตุผลการปลดบล็อก (อย่างน้อย 8 ตัวอักษร)</label>
+                    <textarea id="unblockReason" rows="3" maxlength="500"></textarea>
+                    <p id="unblockError" role="alert"></p>
+                    <button id="unblockSubmit" type="button">ยืนยันการปลดบล็อก</button>
+                </div>
+            </div>
+            <section id="blockOtpStep" class="dialog-stage otp-step" aria-labelledby="otpTitle" hidden>
+                <div class="otp-mark" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></svg>
+                </div>
+                <p id="otpStepLabel" class="otp-kicker">ขั้นตอนสุดท้าย · ยืนยันทางอีเมล</p>
+                <h2 id="otpTitle">ยืนยันรหัสก่อนปลดบล็อก</h2>
+                <p id="otpDescription" class="otp-description">กรอกรหัส 6 หลักที่ส่งไปยังอีเมลผู้ดูแล</p>
+                <div class="otp-context"><span id="otpIpLabel">IP ที่จะปลดบล็อก</span><strong id="otpTargetIp"></strong></div>
+                <p id="otpDeliveryStatus" class="otp-delivery" role="status" aria-live="polite"></p>
+                <label id="otpCodeLabel" class="otp-label" for="blockOtpCode">รหัสยืนยัน 6 หลัก</label>
+                <input id="blockOtpCode" class="otp-code" type="text" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code" aria-describedby="otpExpiry otpError">
+                <p id="otpError" class="otp-error" role="alert" aria-live="assertive"></p>
+                <div class="otp-timing"><span id="otpExpiry"></span><button id="otpResend" type="button" disabled>ส่งรหัสอีกครั้ง</button></div>
+                <div class="otp-actions"><button id="otpBack" type="button">ย้อนกลับ</button><button id="otpConfirm" type="button" disabled>ยืนยันและปลดบล็อก</button></div>
+            </section>
+        </form>
+    </dialog>
+
+    <dialog id="eventLabelDialog" class="block-dialog" aria-labelledby="eventLabelTitle">
+        <form method="dialog" class="block-dialog-shell">
+            <button class="block-dialog-close" value="cancel" aria-label="Close">×</button>
+            <p class="enforcement-eyebrow">MODEL REVIEW</p>
+            <h2 id="eventLabelTitle">ตรวจสอบเหตุการณ์</h2>
+            <p id="eventLabelDetail"></p>
+            <div id="eventLabelForm">
+                <label id="eventLabelSelectLabel" for="eventLabelSelect">ผลตรวจสอบ</label>
+                <select id="eventLabelSelect" class="table-select"><option value="MALICIOUS">เป็นภัยจริง</option><option value="BENIGN">ปกติ / แจ้งเตือนผิด</option></select>
+                <label id="eventLabelReasonLabel" for="eventLabelReason">เหตุผล (อย่างน้อย 8 ตัวอักษร)</label>
+                <textarea id="eventLabelReason" rows="3" maxlength="500"></textarea>
+                <p id="eventLabelError" role="alert"></p>
+                <button id="eventLabelSubmit" type="button">บันทึกผลตรวจสอบ</button>
+            </div>
+        </form>
+    </dialog>

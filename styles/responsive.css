@@ -1,0 +1,258 @@
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1250px) {
+    .cards {
+        grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    }
+
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 30px 40px;
+    }
+
+    .ip-scroll {
+        max-height: 340px;
+    }
+}
+
+@media (max-width: 1160px) {
+    .brand p {
+        display: none;
+    }
+
+    .dashboard-nav-link {
+        padding-inline: 9px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 900px) {
+    main {
+        padding: 14px;
+    }
+
+    .topbar-inner {
+        padding: 0 14px;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        gap: 8px 14px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .dashboard-nav {
+        order: 3;
+        width: 100%;
+        overflow-x: auto;
+        scrollbar-width: none;
+    }
+
+    .dashboard-nav::-webkit-scrollbar {
+        display: none;
+    }
+
+    .dashboard-nav-link {
+        flex: 1 0 auto;
+        justify-content: center;
+    }
+
+    .hero {
+        grid-template-columns: 1fr;
+    }
+
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .event-toolbar {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .event-search {
+        max-width: none;
+        flex-basis: auto;
+    }
+
+    .event-controls {
+        justify-content: flex-start;
+    }
+
+    .event-head {
+        display: none;
+    }
+
+    .event-row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px 14px;
+        margin: 8px 0;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        background: #fff;
+    }
+
+    .event-row > div::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 3px;
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 600;
+    }
+
+    .event-pagination {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .pagination-buttons {
+        width: 100%;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 700px) {
+    .footer-inner {
+        padding: 26px 16px 16px;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 26px;
+    }
+
+    .footer-col h4 {
+        font-size: 18px;
+    }
+
+    .footer-bottom {
+        text-align: left;
+    }
+}
+
+@media (max-width: 560px) {
+    main,
+    .hero,
+    .cards,
+    .charts-overview-panel,
+    .content-grid {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .topbar-inner {
+        min-height: 70px;
+    }
+
+    .dashboard-nav-link {
+        padding: 7px 9px;
+        font-size: 12px;
+    }
+
+    .brand-logo {
+        width: 46px;
+        height: 46px;
+        flex-basis: 46px;
+    }
+
+    .brand-logo img {
+        width: 46px;
+        height: 46px;
+    }
+
+    .brand h1 {
+        font-size: 16px;
+    }
+
+    .brand p {
+        display: none;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-main,
+    .hero-status {
+        padding: 18px;
+    }
+
+    .hero-main h2 {
+        font-size: 24px;
+    }
+
+    .ip-head,
+    .ip-row {
+        grid-template-columns: minmax(0, 1fr) 100px;
+        column-gap: 12px;
+    }
+
+    .ip-scroll {
+        max-height: 300px;
+    }
+
+    .event-row {
+        grid-template-columns: 1fr;
+    }
+
+    .panel-head {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .lang button {
+        padding: 6px 9px;
+    }
+
+    .event-controls {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .control-group {
+        min-width: 0;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .table-select {
+        width: 100%;
+    }
+
+    .footer-brand {
+        align-items: flex-start;
+    }
+
+    .footer-logo {
+        width: 48px;
+        height: 48px;
+        flex-basis: 48px;
+    }
+
+    .footer-brand-title {
+        font-size: 16px;
+    }
+
+    .footer-brand-subtitle,
+    .footer-list li,
+    .footer-info {
+        font-size: 13px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+    }
+}

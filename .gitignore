@@ -1,0 +1,51 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.htpasswd
+credentials/
+secrets/
+
+# Runtime dashboard and security data
+analysis.json
+blocks_summary.json
+data/
+state/
+snapshots/
+segments/
+*.jsonl
+*.log
+*.lock
+
+# Databases, exports, and backups
+*.sql
+*.sql.gz
+*.dump
+*.bak
+*.backup
+*.tar
+*.tar.gz
+*.zip
+refactor-preview.html
+
+# Dependencies and generated local state
+node_modules/
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+
+# Editors and operating systems
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+

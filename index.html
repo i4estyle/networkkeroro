@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Security Monitoring Dashboard</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="dist/dashboard.css?v=component-refactor-20261028c">
+<script src="vendor/echarts.min.js?v=5.5.0"></script>
+</head>
+
+<body>
+
+<div id="loader">
+    <div class="loader-box">
+        <div class="loader-ring"></div>
+        <div class="loader-title" data-i18n="loadingTitle"></div>
+        <div class="loader-subtitle" data-i18n="loadingSubtitle"></div>
+    </div>
+</div>
+
+
+<div id="app" class="app">
+
+<header class="topbar">
+    <div class="topbar-inner">
+
+        <div class="brand">
+
+            <div class="brand-logo">
+                <img
+                    src="assets/logo-informatics-00b0c133.png"
+                    alt="Faculty of Informatics BUU"
+                    width="250"
+                    height="250"
+                    decoding="async"
+                    fetchpriority="high"
+                >
+            </div>
+
+            <div>
+                <h1 data-i18n="title"></h1>
+                <p data-i18n="subtitle"></p>
+            </div>
+
+        </div>
+
+        <nav class="dashboard-nav" aria-label="Dashboard navigation">
+            <button class="dashboard-nav-link" type="button" data-dashboard-nav="home" aria-current="page">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"></path></svg>
+                <span data-i18n="navHome"></span>
+            </button>
+            <button class="dashboard-nav-link" type="button" data-dashboard-nav="blocks">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v5c0 4.6 3 8.8 7 10 4-1.2 7-5.4 7-10V6z"></path><path d="M9.5 12.5 11 14l3.5-4"></path></svg>
+                <span data-i18n="navBlocks"></span>
+            </button>
+            <button class="dashboard-nav-link" type="button" data-dashboard-nav="history">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"></circle><path d="m16 16 4 4M11 8v3.5l2.3 1.3"></path></svg>
+                <span data-i18n="navHistory"></span>
+            </button>
+        </nav>
+
+        <div class="actions">
+
+            <div id="notificationCenter" class="notification-center">
+                <button
+                    id="notificationTrigger"
+                    class="notification-trigger"
+                    type="button"
+                    aria-expanded="false"
+                    aria-controls="notificationPanel"
+                    aria-haspopup="dialog"
+                    aria-label="เปิดการแจ้งเตือน"
+                >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
+                        <path d="M10 21h4"></path>
+                    </svg>
+                    <span id="notificationBadge" class="notification-badge" hidden>0</span>
+                </button>
+
+                <section
+                    id="notificationPanel"
+                    class="notification-panel"
+                    role="dialog"
+                    aria-labelledby="notificationTitle"
+                    hidden
+                >
+                    <div class="notification-panel-head">
+                        <div>
+                            <h2 id="notificationTitle">การแจ้งเตือนล่าสุด</h2>
+                            <p id="notificationSubtitle">เหตุการณ์ล่าสุดจาก 10 IP</p>
+                        </div>
+                        <button id="notificationClose" class="notification-close" type="button" aria-label="ปิดการแจ้งเตือน">×</button>
+                    </div>
+                    <div id="notificationList" class="notification-list"></div>
+                    <div class="notification-panel-foot">
+                        <span class="notification-live-dot" aria-hidden="true"></span>
+                        <span id="notificationLiveText">อัปเดตอัตโนมัติ</span>
+                    </div>
+                </section>
+            </div>
+
+            <div class="lang">
+                <button id="thBtn" type="button">TH</button>
+                <button id="enBtn" type="button">EN</button>
+            </div>
+
+        </div>
+
+    </div>
+</header>
+
+
+<main>
+
+    <section class="hero dashboard-view" data-dashboard-view="home">
+
+        <div class="hero-main">
+            <h2 data-i18n="heroTitle"></h2>
+            <p data-i18n="heroText"></p>
+        </div>
+
+        <div class="hero-status">
+
+            <div class="monitor">
+                <span class="dot"></span>
+                <span data-i18n="monitoring"></span>
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="cards dashboard-view" data-dashboard-view="home">
+
+        <div class="card">
+            <div class="card-label" data-i18n="requests"></div>
+            <div id="total" class="card-value">0</div>
+            <div class="card-note" data-i18n="requestsNote"></div>
+        </div>
+
+        <div class="card">
+            <div class="card-label" data-i18n="uniqueIps"></div>
+            <div id="ips" class="card-value">0</div>
+            <div class="card-note" data-i18n="uniqueIpsNote"></div>
+        </div>
+
+        <div class="card">
+            <div class="card-label" data-i18n="events"></div>
+            <div id="eventsCount" class="card-value">0</div>
+            <div class="card-note" data-i18n="eventsNote"></div>
+        </div>
+
+        <div class="card">
+            <div class="card-label" data-i18n="high"></div>
+            <div id="high" class="card-value">0</div>
+            <div class="card-note" data-i18n="highNote"></div>
+        </div>
+
+        <div class="card">
+            <div class="card-label" data-i18n="aiStatus"></div>
+            <div id="aiStatus" class="card-value"></div>
+            <div id="aiDetail" class="card-note"></div>
+        </div>
+
+    </section>
+
+    <section class="charts-overview-panel dashboard-view" data-dashboard-view="home" aria-label="Security Analytics Overview">
+        
+
+        <div class="charts-grid-top">
+            <div class="chart-card chart-wide">
+                <div class="chart-card-head">
+                    <div>
+                        <h3 data-i18n="chartTimelineTitle">แนวโน้มปริมาณคำขอและภัยคุกคาม</h3>
+                        <p class="chart-desc" data-i18n="chartTimelineDesc">เปรียบเทียบคำขอทั้งหมดและเหตุการณ์ภัยคุกคามตามช่วงเวลาที่เลือก</p>
+                    </div>
+                    <div class="chart-head-actions">
+                        <label class="chart-period-control" for="timelinePeriod">
+                            <span data-i18n="periodLabel">ช่วงเวลา</span>
+                            <select id="timelinePeriod" class="chart-period-select">
+                                <option value="day" data-i18n="periodToday">วันนี้ · รายชั่วโมง</option>
+                                <option value="month" data-i18n="periodMonth">เดือนนี้ · รายวัน</option>
+                                <option value="quarter" data-i18n="periodQuarter">ไตรมาสนี้ · รายสัปดาห์</option>
+                                <option value="year" data-i18n="periodYear">ปีนี้ · รายเดือน</option>
+                            </select>
+                        </label>
+                        <div class="chart-legend-badge">
+                            <span class="legend-dot normal-dot"></span><span data-i18n="legendNormal">คำขอทั้งหมด</span>
+                            <span class="legend-dot threat-dot"></span><span data-i18n="legendThreat">เหตุการณ์ภัยคุกคาม</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="chartTrafficTimeline" class="echart-container chart-height-timeline"></div>
+            </div>
+
+            <div class="chart-card chart-narrow">
+                <div class="chart-card-head">
+                    <div>
+                        <h3 data-i18n="chartGaugeTitle">ระดับความปลอดภัยระบบ</h3>
+                        <p class="chart-desc" data-i18n="chartGaugeDesc">ดัชนีชี้วัดความมั่นคงปลอดภัยจากคำขอและภัยคุกคามที่ตรวจพบ</p>
+                    </div>
+                    <label class="chart-period-control" for="securityPeriod">
+                        <span class="sr-only" data-i18n="periodLabel">ช่วงเวลา</span>
+                        <select id="securityPeriod" class="chart-period-select">
+                            <option value="day" data-i18n="periodTodayShort">วันนี้</option>
+                            <option value="month" data-i18n="periodMonthShort">เดือนนี้</option>
+                            <option value="quarter" data-i18n="periodQuarterShort">ไตรมาสนี้</option>
+                            <option value="year" data-i18n="periodYearShort">ปีนี้</option>
+                        </select>
+                    </label>
+                </div>
+                <div id="chartSecurityGauge" class="echart-container chart-height-gauge"></div>
+                <div id="securityGaugeMeta" class="gauge-metrics" aria-live="polite"></div>
+            </div>
+        </div>
+
+        <div class="charts-grid-bottom">
+            <div class="chart-card">
+                <div class="chart-card-head">
+                    <div>
+                        <h3 data-i18n="chartRadarTitle">เรดาร์มิติภัยคุกคาม 6 ด้าน</h3>
+                        <p class="chart-desc" data-i18n="chartRadarDesc">วิเคราะห์ความเสี่ยงรายประเภทตามพฤติกรรมของ Hacker</p>
+                    </div>
+                </div>
+                <div id="chartThreatRadar" class="echart-container chart-height-standard"></div>
+            </div>
+
+            <div class="chart-card">
+                <div class="chart-card-head">
+                    <div>
+                        <h3 data-i18n="chartDonutTitle">สัดส่วนระดับความเสี่ยง</h3>
+                        <p class="chart-desc" data-i18n="chartDonutDesc">อัตราส่วนระหว่างความเสี่ยงสูง ปานกลาง และต่ำ</p>
+                    </div>
+                </div>
+                <div id="chartAttackVectors" class="echart-container chart-height-standard"></div>
+            </div>
+
+            <div class="chart-card">
+                <div class="chart-card-head">
+                    <div>
+                        <h3 data-i18n="chartPathsTitle">เป้าหมายที่ถูกโจมตีบ่อยที่สุด</h3>
+                        <p class="chart-desc" data-i18n="chartPathsDesc">เส้นทาง URL ที่ถูกโจมตีหรือสแกนหาช่องโหว่สูงสุด</p>
+                    </div>
+                </div>
+                <div id="chartTargetedPaths" class="echart-container chart-height-standard"></div>
+            </div>
+        </div>
+    </section>
+
+
+<section class="enforcement-panel dashboard-view" data-dashboard-view="blocks" aria-labelledby="enforcementTitle">
+        <div class="enforcement-heading">
+            <div>
+                <h2 id="enforcementTitle">การบล็อก IP</h2>
+                <p id="enforcementIntro">ตรวจสอบ IP ที่ถูกบล็อกและปลดบล็อกพร้อมบันทึกเหตุผล</p>
+            </div>
+            <div class="enforcement-metrics" aria-live="polite">
+                <div><strong id="permanentBlockCount">0</strong><span id="permanentBlockLabel">บล็อกถาวร</span></div>
+                <div><strong id="cooldownBlockCount">0</strong><span id="cooldownBlockLabel">พักการเข้าถึง</span></div>
+                <div><strong id="unblockedCount">0</strong><span id="unblockedLabel">ถูกปลดบล็อก</span></div>
+            </div>
+        </div>
+        <div class="enforcement-toolbar">
+            <label for="blockSearch" id="blockSearchLabel">ค้นหา IP</label>
+            <input id="blockSearch" type="search" autocomplete="off" inputmode="search" placeholder="เช่น 203.0.113.8">
+            <label for="blockFilter" id="blockFilterLabel">สถานะ</label>
+            <select id="blockFilter" class="table-select">
+                <option value="active">กำลังบล็อก</option>
+                <option value="PERMANENT_BLOCK">บล็อกถาวร</option>
+                <option value="COOLDOWN">พักการเข้าถึง</option>
+                <option value="history">ประวัติการปลดบล็อก</option>
+            </select>
+            <button id="blockRefresh" type="button">รีเฟรช</button>
+            <div class="event-controls block-list-controls" aria-label="Block list controls">
+                <div class="control-group">
+                    <span id="blockSortLabel" class="control-label">เรียงตาม</span>
+                    <select id="blockSort" class="table-select" aria-label="Sort blocked IPs">
+                        <option value="newest" data-i18n="sortBlockNewest"> เวลาถูกบล็อก: ล่าสุดก่อน</option>
+                        <option value="oldest" data-i18n="sortBlockOldest"> เวลาถูกบล็อก: เก่าสุดก่อน</option>
+                        <option value="status" data-i18n="sortBlockStatus"> สถานะ: บล็อกถาวรก่อน</option>
+                        <option value="ip" data-i18n="sortIp"> หมายเลข IP (เรียงตามไอพี)</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <span id="blockPageSizeLabel" class="control-label">แสดงต่อหน้า</span>
+                    <select id="blockPageSize" class="table-select" aria-label="Blocked IPs per page">
+                        <option value="5">5</option>
+                        <option value="10" selected>10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <p id="blockMessage" class="enforcement-message" role="status" aria-live="polite" hidden></p>
+        <p id="storageNotice" class="enforcement-message" role="alert" hidden></p>
+        <div class="enforcement-table-wrap">
+            <table class="enforcement-table">
+                <thead><tr>
+                    <th id="blockThIp">IP</th><th id="blockThStatus">สถานะ</th>
+                    <th id="blockThReason">สาเหตุ</th><th id="blockThTime">เริ่มบล็อก</th>
+                    <th id="blockThExpiry">สิ้นสุด</th><th id="blockThAction">จัดการ</th>
+                </tr></thead>
+                <tbody id="blockRows"></tbody>
+            </table>
+        </div>
+        <div class="event-pagination">
+            <div id="blockPageSummary" class="pagination-summary"></div>
+            <div id="blockPaginationButtons" class="pagination-buttons" aria-label="Block list pagination"></div>
+        </div>
+    </section>
+
+    <dialog id="blockDetailDialog" class="block-dialog" aria-labelledby="blockDialogTitle">
+        <form method="dialog" class="block-dialog-shell">
+            <button class="block-dialog-close" type="button" aria-label="Close">×</button>
+            <div id="blockReviewStep" class="dialog-stage">
+                <p class="enforcement-eyebrow">IP ENFORCEMENT</p>
+                <h2 id="blockDialogTitle"></h2>
+                <div id="blockDetailBody"></div>
+                <div id="unblockForm" hidden>
+                    <label id="confirmIpLabel" for="confirmBlockIp">พิมพ์ IP เพื่อยืนยัน</label>
+                    <input id="confirmBlockIp" type="text" autocomplete="off" spellcheck="false">
+                    <label id="unblockReasonLabel" for="unblockReason">เหตุผลการปลดบล็อก (อย่างน้อย 8 ตัวอักษร)</label>
+                    <textarea id="unblockReason" rows="3" maxlength="500"></textarea>
+                    <p id="unblockError" role="alert"></p>
+                    <button id="unblockSubmit" type="button">ยืนยันการปลดบล็อก</button>
+                </div>
+            </div>
+            <section id="blockOtpStep" class="dialog-stage otp-step" aria-labelledby="otpTitle" hidden>
+                <div class="otp-mark" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></svg>
+                </div>
+                <p id="otpStepLabel" class="otp-kicker">ขั้นตอนสุดท้าย · ยืนยันทางอีเมล</p>
+                <h2 id="otpTitle">ยืนยันรหัสก่อนปลดบล็อก</h2>
+                <p id="otpDescription" class="otp-description">กรอกรหัส 6 หลักที่ส่งไปยังอีเมลผู้ดูแล</p>
+                <div class="otp-context"><span id="otpIpLabel">IP ที่จะปลดบล็อก</span><strong id="otpTargetIp"></strong></div>
+                <p id="otpDeliveryStatus" class="otp-delivery" role="status" aria-live="polite"></p>
+                <label id="otpCodeLabel" class="otp-label" for="blockOtpCode">รหัสยืนยัน 6 หลัก</label>
+                <input id="blockOtpCode" class="otp-code" type="text" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" autocomplete="one-time-code" aria-describedby="otpExpiry otpError">
+                <p id="otpError" class="otp-error" role="alert" aria-live="assertive"></p>
+                <div class="otp-timing"><span id="otpExpiry"></span><button id="otpResend" type="button" disabled>ส่งรหัสอีกครั้ง</button></div>
+                <div class="otp-actions"><button id="otpBack" type="button">ย้อนกลับ</button><button id="otpConfirm" type="button" disabled>ยืนยันและปลดบล็อก</button></div>
+            </section>
+        </form>
+    </dialog>
+
+    <dialog id="eventLabelDialog" class="block-dialog" aria-labelledby="eventLabelTitle">
+        <form method="dialog" class="block-dialog-shell">
+            <button class="block-dialog-close" value="cancel" aria-label="Close">×</button>
+            <p class="enforcement-eyebrow">MODEL REVIEW</p>
+            <h2 id="eventLabelTitle">ตรวจสอบเหตุการณ์</h2>
+            <p id="eventLabelDetail"></p>
+            <div id="eventLabelForm">
+                <label id="eventLabelSelectLabel" for="eventLabelSelect">ผลตรวจสอบ</label>
+                <select id="eventLabelSelect" class="table-select"><option value="MALICIOUS">เป็นภัยจริง</option><option value="BENIGN">ปกติ / แจ้งเตือนผิด</option></select>
+                <label id="eventLabelReasonLabel" for="eventLabelReason">เหตุผล (อย่างน้อย 8 ตัวอักษร)</label>
+                <textarea id="eventLabelReason" rows="3" maxlength="500"></textarea>
+                <p id="eventLabelError" role="alert"></p>
+                <button id="eventLabelSubmit" type="button">บันทึกผลตรวจสอบ</button>
+            </div>
+        </form>
+    </dialog>
+
+
+<section class="content-grid home-events-grid dashboard-view" data-dashboard-view="home">
+
+        <!-- ACCESSED IP -->
+        <div class="panel top-ip-panel">
+            <div class="panel-head">
+                <div class="panel-title-row">
+                    <h3 data-i18n="topIps"></h3>
+                    <span id="homeIpCount" class="top-ip-count" aria-live="polite"></span>
+                </div>
+                <div class="control-group control-group-flush">
+                    <select id="homeIpSort" class="table-select" aria-label="Sort accessed IPs">
+                        <option value="most" data-i18n="sortMost"> คำขอ: มากที่สุด → น้อยที่สุด</option>
+                        <option value="least" data-i18n="sortLeast"> คำขอ: น้อยที่สุด → มากที่สุด</option>
+                        <option value="newest" data-i18n="sortNewest"> เวลา: เข้าถึงล่าสุดก่อน</option>
+                        <option value="oldest" data-i18n="sortOldest"> เวลา: เข้าถึงเก่าสุดก่อน</option>
+                        <option value="ip" data-i18n="sortIp"> หมายเลข IP (A → Z)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="ip-list">
+                <div class="ip-scroll">
+                    <div class="ip-head">
+                        <div data-i18n="ipAddress"></div>
+                        <div data-i18n="requestCount"></div>
+                    </div>
+                    <div id="homeIpList"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECURITY EVENTS -->
+        <div class="panel">
+
+            <div class="panel-head">
+                <h3 data-i18n="recentEvents"></h3>
+                <span data-i18n="recentEventsSub"></span>
+            </div>
+
+            <div class="event-toolbar">
+
+                <div class="event-search">
+
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        aria-hidden="true"
+                    >
+                        <circle cx="11" cy="11" r="7"></circle>
+                        <path d="m20 20-3.5-3.5"></path>
+                    </svg>
+
+                    <input
+                        id="eventSearch"
+                        type="text"
+                        role="searchbox"
+                        inputmode="search"
+                        enterkeyhint="search"
+                        autocomplete="off"
+                        autocapitalize="off"
+                        spellcheck="false"
+                        data-i18n-placeholder="searchPlaceholder"
+                        aria-label="Search security events"
+                    >
+
+                    <button
+                        id="searchClear"
+                        class="search-clear"
+                        type="button"
+                        aria-label="Clear search"
+                    >
+                        ×
+                    </button>
+
+                </div>
+
+                <div class="event-controls">
+
+                    <div class="control-group">
+                        <span
+                            class="control-label"
+                            data-i18n="sortBy">
+                        </span>
+
+                        <select
+                            id="eventSort"
+                            class="table-select"
+                            aria-label="Sort events"
+                        >
+                            <option
+                                value="newest"
+                                data-i18n="sortNewest"> เวลาตรวจพบ: ล่าสุดก่อน
+                            </option>
+                            <option
+                                value="oldest"
+                                data-i18n="sortOldest"> เวลาตรวจพบ: เก่าสุดก่อน
+                            </option>
+                            <option
+                                value="requests-desc"
+                                data-i18n="sortRequestsDesc"> ปริมาณคำขอ: มากที่สุด → น้อยที่สุด
+                            </option>
+                            <option
+                                value="requests-asc"
+                                data-i18n="sortRequestsAsc"> ปริมาณคำขอ: น้อยที่สุด → มากที่สุด
+                            </option>
+                            <option
+                                value="severity"
+                                data-i18n="sortSeverity"> ระดับความเสี่ยง: รุนแรงที่สุดก่อน
+                            </option>
+                            <option
+                                value="ip"
+                                data-i18n="sortIp"> หมายเลข IP (เรียงตามไอพี)
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="control-group">
+                        <span
+                            class="control-label"
+                            data-i18n="rowsPerPage">
+                        </span>
+
+                        <select
+                            id="eventPageSize"
+                            class="table-select"
+                            aria-label="Rows per page"
+                        >
+                            <option value="5">5</option>
+                            <option value="10" selected>10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                        </select>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="event-list">
+
+                <div class="event-head">
+                    <div data-i18n="time"></div>
+                    <div>IP</div>
+                    <div data-i18n="requests"></div>
+                    <div data-i18n="detection"></div>
+                    <div data-i18n="severity"></div>
+                </div>
+
+                <div id="eventList"></div>
+
+            </div>
+
+            <div class="event-pagination">
+
+                <div
+                    id="paginationSummary"
+                    class="pagination-summary">
+                </div>
+
+                <div
+                    id="paginationButtons"
+                    class="pagination-buttons"
+                    aria-label="Pagination">
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+<div class="history-layout dashboard-view" data-dashboard-view="history">
+    <section class="content-grid history-top-grid">
+        <div class="panel">
+            <div class="panel-head">
+                <div class="panel-title-row">
+                    <h3 data-i18n="topIps"></h3>
+                    <span id="historyIpCount" class="top-ip-count" aria-live="polite"></span>
+                </div>
+                <div class="control-group control-group-flush">
+                    <select id="historyIpSort" class="table-select" aria-label="Sort accessed IPs">
+                        <option value="most" data-i18n="sortMost"> คำขอ: มากที่สุด → น้อยที่สุด</option>
+                        <option value="least" data-i18n="sortLeast"> คำขอ: น้อยที่สุด → มากที่สุด</option>
+                        <option value="newest" data-i18n="sortNewest"> เวลา: เข้าถึงล่าสุดก่อน</option>
+                        <option value="oldest" data-i18n="sortOldest"> เวลา: เข้าถึงเก่าสุดก่อน</option>
+                        <option value="ip" data-i18n="sortIp"> หมายเลข IP (A → Z)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="ip-list">
+                <div class="ip-scroll">
+                    <div class="ip-head">
+                        <div data-i18n="ipAddress"></div>
+                        <div data-i18n="requestCount"></div>
+                    </div>
+                    <div id="ipList"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="enforcement-panel history-panel" aria-labelledby="historyTitle">
+        <div class="enforcement-heading">
+            <div>
+                <h2 id="historyTitle">ค้นหาประวัติเหตุการณ์</h2>
+                <p id="historyIntro">เลือกช่วงวันเพื่อดูเหตุการณ์ที่เก็บไว้ตั้งแต่เริ่มบันทึก</p>
+            </div>
+        </div>
+        <div class="enforcement-toolbar">
+            <label id="historyFromLabel" for="historyFrom">จากวันที่</label><input id="historyFrom" type="date">
+            <label id="historyToLabel" for="historyTo">ถึงวันที่</label><input id="historyTo" type="date">
+            <label id="historySearchLabel" for="historySearch">ค้นหา IP หรือสาเหตุ</label><input id="historySearch" type="search" autocomplete="off">
+            <button id="historySubmit" type="button">ค้นหา</button>
+        </div>
+        <p id="historyMessage" class="enforcement-message" role="status" aria-live="polite" hidden></p>
+        <div class="enforcement-table-wrap">
+            <table class="enforcement-table"><thead><tr>
+                <th id="historyThTime">เวลา</th><th>IP</th><th id="historyThWindow">ช่วงวิเคราะห์</th>
+                <th id="historyThReason">สาเหตุ</th><th id="historyThSeverity">ความเสี่ยง</th>
+                <th id="historyThLabel">ผลตรวจ</th><th id="historyThAction">จัดการ</th>
+            </tr></thead><tbody id="historyRows"><tr><td colspan="7">เลือกช่วงวันแล้วกดค้นหา</td></tr></tbody></table>
+        </div>
+        <div class="event-pagination">
+            <div id="historyPageSummary" class="pagination-summary"></div>
+            <div id="historyPaginationButtons" class="pagination-buttons" aria-label="Event archive pagination"></div>
+        </div>
+    </section>
+    </div>
+
+</main>
+
+<footer class="site-footer">
+
+    <div class="footer-inner">
+
+        <div class="footer-grid">
+
+            <div class="footer-col">
+
+                <div class="footer-brand">
+
+                    <div class="footer-logo">
+                        <img
+                            src="assets/logo-informatics-00b0c133.png"
+                            alt="Faculty of Informatics BUU"
+                            width="250"
+                            height="250"
+                            decoding="async"
+                            loading="lazy"
+                        >
+                    </div>
+
+                    <div class="footer-brand-content">
+
+                        <div
+                            class="footer-brand-title"
+                            data-i18n="footerSystemTitle">
+                        </div>
+
+                        <div
+                            class="footer-brand-subtitle"
+                            data-i18n="footerSystemDesc">
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="footer-col">
+
+                <h4 data-i18n="footerProjectTitle"></h4>
+
+                <ul class="footer-list">
+                    <li data-i18n="footerProjectItem1"></li>
+                    <li data-i18n="footerProjectItem2"></li>
+                    <li data-i18n="footerProjectItem3"></li>
+                    <li data-i18n="footerProjectItem4"></li>
+                </ul>
+
+            </div>
+
+            <div class="footer-col">
+
+                <h4 data-i18n="footerTechTitle"></h4>
+
+                <div class="footer-chip-list">
+
+                    <span class="footer-chip">
+                        Azure Cloud VPS
+                    </span>
+
+                    <span class="footer-chip">
+                        Nginx
+                    </span>
+
+                    <span class="footer-chip">
+                        WordPress
+                    </span>
+
+                    <span class="footer-chip">
+                        Python
+                    </span>
+
+                    <span class="footer-chip">
+                        JSON Log
+                    </span>
+
+                    <span class="footer-chip">
+                        Hybrid Rules
+                    </span>
+
+                    <span class="footer-chip">
+                        Google Gemini AI
+                    </span>
+
+                    <span class="footer-chip">
+                        Threat Intelligence
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="footer-col">
+
+                <h4 data-i18n="footerStatusTitle"></h4>
+
+                <div class="footer-status">
+                    <span class="footer-status-dot"></span>
+                    <span data-i18n="footerStatusText"></span>
+                </div>
+
+                <div
+                    class="footer-info"
+                    data-i18n="footerStatusDesc2">
+                </div>
+
+                <div class="footer-domain">
+                    keroronetwork.duckdns.org
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+
+            <div
+                class="footer-bottom-primary"
+                data-i18n="footerBottomLine1">
+            </div>
+
+            <div
+                class="footer-bottom-secondary"
+                data-i18n="footerBottomLine2">
+            </div>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+</div>
+
+<script src="dist/dashboard.js?v=component-refactor-20261028c"></script>
+
+</body>
+</html>

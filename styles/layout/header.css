@@ -1,0 +1,142 @@
+/* =========================
+   HEADER
+========================= */
+
+.topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--navy);
+    color: #fff;
+    box-shadow: 0 3px 14px rgba(0, 35, 70, .20);
+}
+
+.topbar-inner {
+    min-height: 82px;
+    padding: 0 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+}
+
+.brand-logo {
+    width: 58px;
+    height: 58px;
+    flex: 0 0 58px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.brand-logo img {
+    width: 58px;
+    height: 58px;
+    display: block;
+    object-fit: contain;
+}
+
+.brand h1 {
+    margin: 0;
+    font-size: 20px;
+    line-height: 1.25;
+}
+
+.brand p {
+    margin: 4px 0 0;
+    color: #cce1ef;
+    font-size: 13px;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.dashboard-nav {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-left: auto;
+    padding: 4px;
+    border: 1px solid rgba(255, 255, 255, .16);
+    border-radius: 11px;
+    background: rgba(0, 31, 61, .2);
+}
+
+.dashboard-nav-link {
+    min-height: 36px;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 7px 11px;
+    color: #d5e7f4;
+    background: transparent;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: background .16s ease, color .16s ease, box-shadow .16s ease;
+}
+
+.dashboard-nav-link svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.dashboard-nav-link:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, .11);
+}
+
+.dashboard-nav-link.is-active {
+    color: var(--navy);
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0, 23, 47, .18);
+}
+
+.dashboard-nav-link:focus-visible {
+    outline: 3px solid rgba(255, 255, 255, .72);
+    outline-offset: 2px;
+}
+
+.lang {
+    display: flex;
+    padding: 3px;
+    background: rgba(255, 255, 255, .12);
+    border-radius: 9px;
+}
+
+.lang button {
+    border: 0;
+    color: #d8e8f5;
+    background: transparent;
+    padding: 7px 12px;
+    border-radius: 7px;
+    font-weight: 600;
+    transition: .2s ease;
+}
+
+.lang button:hover {
+    background: rgba(255, 255, 255, .10);
+}
+
+.lang button.active {
+    background: #fff;
+    color: var(--navy);
+}

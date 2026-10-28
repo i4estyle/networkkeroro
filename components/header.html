@@ -1,0 +1,88 @@
+<header class="topbar">
+    <div class="topbar-inner">
+
+        <div class="brand">
+
+            <div class="brand-logo">
+                <img
+                    src="assets/logo-informatics-00b0c133.png"
+                    alt="Faculty of Informatics BUU"
+                    width="250"
+                    height="250"
+                    decoding="async"
+                    fetchpriority="high"
+                >
+            </div>
+
+            <div>
+                <h1 data-i18n="title"></h1>
+                <p data-i18n="subtitle"></p>
+            </div>
+
+        </div>
+
+        <nav class="dashboard-nav" aria-label="Dashboard navigation">
+            <button class="dashboard-nav-link" type="button" data-dashboard-nav="home" aria-current="page">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"></path></svg>
+                <span data-i18n="navHome"></span>
+            </button>
+            <button class="dashboard-nav-link" type="button" data-dashboard-nav="blocks">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v5c0 4.6 3 8.8 7 10 4-1.2 7-5.4 7-10V6z"></path><path d="M9.5 12.5 11 14l3.5-4"></path></svg>
+                <span data-i18n="navBlocks"></span>
+            </button>
+            <button class="dashboard-nav-link" type="button" data-dashboard-nav="history">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"></circle><path d="m16 16 4 4M11 8v3.5l2.3 1.3"></path></svg>
+                <span data-i18n="navHistory"></span>
+            </button>
+        </nav>
+
+        <div class="actions">
+
+            <div id="notificationCenter" class="notification-center">
+                <button
+                    id="notificationTrigger"
+                    class="notification-trigger"
+                    type="button"
+                    aria-expanded="false"
+                    aria-controls="notificationPanel"
+                    aria-haspopup="dialog"
+                    aria-label="เปิดการแจ้งเตือน"
+                >
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
+                        <path d="M10 21h4"></path>
+                    </svg>
+                    <span id="notificationBadge" class="notification-badge" hidden>0</span>
+                </button>
+
+                <section
+                    id="notificationPanel"
+                    class="notification-panel"
+                    role="dialog"
+                    aria-labelledby="notificationTitle"
+                    hidden
+                >
+                    <div class="notification-panel-head">
+                        <div>
+                            <h2 id="notificationTitle">การแจ้งเตือนล่าสุด</h2>
+                            <p id="notificationSubtitle">เหตุการณ์ล่าสุดจาก 10 IP</p>
+                        </div>
+                        <button id="notificationClose" class="notification-close" type="button" aria-label="ปิดการแจ้งเตือน">×</button>
+                    </div>
+                    <div id="notificationList" class="notification-list"></div>
+                    <div class="notification-panel-foot">
+                        <span class="notification-live-dot" aria-hidden="true"></span>
+                        <span id="notificationLiveText">อัปเดตอัตโนมัติ</span>
+                    </div>
+                </section>
+            </div>
+
+            <div class="lang">
+                <button id="thBtn" type="button">TH</button>
+                <button id="enBtn" type="button">EN</button>
+            </div>
+
+        </div>
+
+    </div>
+</header>
