@@ -776,6 +776,16 @@ let chartDonutInstance = null;
 let chartGaugeInstance = null;
 let chartPathsInstance = null;
 
+function escapeChartHtml(value) {
+    return String(value ?? "").replace(/[&<>"']/g, character => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    })[character]);
+}
+
 function updateTimelineChart(data) {
     const timelineEl = $("chartTrafficTimeline");
     if (!timelineEl || typeof echarts === "undefined" || !data) return;
@@ -1270,7 +1280,9 @@ function renderSecurityCharts(data) {
                 formatter: function(params) {
                     if (!params || !params.length) return "";
                     const item = params[0];
-                    return `<div><b>${item.name}</b></div><div>${language === "th" ? "คำขอโจมตี / เป้าหมาย" : "Targeted requests"}: <b>${item.value.toLocaleString()}</b> ครั้ง</div>`;
+                    const safeName = escapeChartHtml(item.name);
+                    const safeValue = Number(item.value || 0).toLocaleString();
+                    return `<div><b>${safeName}</b></div><div>${language === "th" ? "คำขอโจมตี / เป้าหมาย" : "Targeted requests"}: <b>${safeValue}</b> ครั้ง</div>`;
                 }
             },
             grid: { left: "3%", right: "12%", bottom: "3%", top: "5%", containLabel: true },
