@@ -5,6 +5,7 @@ This directory contains the selected source and public content used by the norma
 ## Included
 
 - `themes/wens-press/` — active production theme, version 1.0.2.
+- `mu-plugins/security-user-protection.php` — must-use plugin for user enumeration prevention, REST protection, oEmbed author data stripping, version hiding, and login error sanitization.
 - `content/public-content.json` — sanitized snapshot of published pages, navigation, templates, template parts, and global styles. Author accounts, password hashes, database IDs, drafts, private posts, and authentication data are excluded.
 - `public-media/` — publicly served media and generated responsive variants inspected for sensitive EXIF metadata.
 - `manifests/` — WordPress, theme, and plugin inventory.

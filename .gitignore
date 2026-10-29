@@ -11,6 +11,8 @@
 *.htpasswd
 credentials/
 secrets/
+wp-config.php
+!wp-config.example.php
 
 # Runtime dashboard and security data
 analysis.json

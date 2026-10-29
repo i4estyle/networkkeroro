@@ -1,1 +1,5 @@
-No active plugins were reported by the production WordPress installation at export time.
+Must-Use Plugins (wp-content/mu-plugins/):
+- security-user-protection.php: Security User & Identity Protection (v1.1.0)
+
+Standard Plugins (wp-content/plugins/):
+No active standard plugins were reported by the production WordPress installation.

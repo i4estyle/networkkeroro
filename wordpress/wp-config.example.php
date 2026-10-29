@@ -26,6 +26,10 @@ foreach ([
 $table_prefix = getenv('WORDPRESS_TABLE_PREFIX') ?: 'wp_';
 define('WP_DEBUG', filter_var(getenv('WORDPRESS_DEBUG') ?: 'false', FILTER_VALIDATE_BOOL));
 
+// Production Security Hardening
+define('DISALLOW_FILE_EDIT', true);
+define('DISABLE_WP_CRON', true);
+
 if (!defined('ABSPATH')) {
     define('ABSPATH', __DIR__ . '/');
 }
