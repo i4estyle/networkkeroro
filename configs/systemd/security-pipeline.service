@@ -1,0 +1,14 @@
+[Unit]
+Description=Incremental JSON security log analysis
+After=nginx.service
+
+[Service]
+Type=oneshot
+User=azureuser
+Group=azureuser
+WorkingDirectory=/opt/security-ai
+ExecStart=/opt/security-ai/venv/bin/python /opt/security-ai/security_pipeline.py
+UMask=0027
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full

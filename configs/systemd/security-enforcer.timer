@@ -1,0 +1,10 @@
+[Unit]
+Description=Verify security IP block firewall every five seconds
+
+[Timer]
+OnBootSec=5s
+OnUnitActiveSec=5s
+AccuracySec=1s
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,13 @@
+[Unit]
+Description=Compress and verify closed security JSONL segments
+
+[Service]
+Type=oneshot
+User=azureuser
+Group=azureuser
+WorkingDirectory=/opt/security-ai
+ExecStart=/usr/bin/python3 /opt/security-ai/security_archive.py
+UMask=0027
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full

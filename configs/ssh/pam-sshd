@@ -1,0 +1,26 @@
+# PAM configuration for Secure Shell service with Google Authenticator TOTP
+# Standard Unix authentication
+auth required pam_google_authenticator.so
+#@include common-auth
+
+# Disallow non-root logins when /etc/nologin exists
+account required pam_nologin.so
+
+# Standard Unix authorization
+@include common-account
+
+# Session management
+session [success=ok ignore=ignore module_unknown=ignore default=bad] pam_selinux.so close
+session required pam_loginuid.so
+session optional pam_keyinit.so force revoke
+@include common-session
+
+session optional pam_motd.so motd=/run/motd.dynamic
+session optional pam_motd.so noupdate
+session optional pam_mail.so standard noenv
+session required pam_limits.so
+session required pam_env.so
+session required pam_env.so user_readenv=1 envfile=/etc/default/locale
+session [success=ok ignore=ignore module_unknown=ignore default=bad] pam_selinux.so open
+
+@include common-password
